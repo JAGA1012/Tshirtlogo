@@ -13,11 +13,33 @@
     h1 {
       color: #0033cc;
     }
+    .input-form {
+      margin: 20px auto;
+    }
+    .input-form input {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+    .input-form button {
+      padding: 10px 20px;
+      background-color: #0033cc;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    .input-form button:hover {
+      background-color: #0022aa;
+    }
+
     .tshirt-container {
       display: flex;
       justify-content: center;
       gap: 50px;
       margin-top: 30px;
+      flex-wrap: wrap;
     }
     .tshirt {
       background-color: white;
@@ -56,30 +78,54 @@
       margin-top: 10px;
       font-weight: bold;
     }
+
+    @media print {
+      .input-form, h1, button#printBtn {
+        display: none;
+      }
+    }
   </style>
 </head>
 <body>
 
-  <h1>P.R.Indlu Custom T-Shirt Design</h1>
+  <h1>P.R.Indlu Custom T-Shirt Designer</h1>
+
+  <div class="input-form">
+    <input type="text" id="villageInput" placeholder="Enter Village Name" />
+    <input type="text" id="nameInput" placeholder="Enter Your Name" />
+    <button onclick="updateDesign()">Update Design</button>
+    <button id="printBtn" onclick="window.print()">🖨️ Print</button>
+  </div>
 
   <div class="tshirt-container">
     <!-- Front Side -->
     <div class="tshirt">
       <div class="logo">PRI</div>
-      <div class="village-name">P.R.Indlu</div>
-      <div class="person-name">Sandeep Yadav</div>
+      <div id="villageName" class="village-name">P.R.Indlu</div>
+      <div id="personName" class="person-name">Sandeep Yadav</div>
       <div class="label">Front</div>
     </div>
 
     <!-- Back Side -->
     <div class="tshirt">
-      <div class="back-text">
+      <div class="back-text" id="backText">
         💙 Representing My Roots<br>
         P.R.Indlu
       </div>
       <div class="label">Back</div>
     </div>
   </div>
+
+  <script>
+    function updateDesign() {
+      const village = document.getElementById("villageInput").value || "P.R.Indlu";
+      const name = document.getElementById("nameInput").value || "Your Name";
+
+      document.getElementById("villageName").textContent = village;
+      document.getElementById("personName").textContent = name;
+      document.getElementById("backText").innerHTML = `💙 Representing My Roots<br>${village}`;
+    }
+  </script>
 
 </body>
 </html>
